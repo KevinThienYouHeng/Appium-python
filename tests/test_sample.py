@@ -19,6 +19,11 @@ def test_products_title_visible(driver):
     """Wait for the Products screen and verify the title text."""
     wait = WebDriverWait(driver, 10)
     
+    logo = driver.find_element(
+        AppiumBy.ID,
+        "com.saucelabs.mydemoapp.android:id/mTvTitle"
+    )
+
     # Wait for the "Products" title element
     products_title = wait.until(
         EC.visibility_of_element_located((
@@ -28,6 +33,7 @@ def test_products_title_visible(driver):
     )
     
     # Read the text and assert it
+    assert logo.is_displayed()
     assert products_title.text == "Products"
 
 def test_first_product_name(driver):
@@ -88,3 +94,63 @@ def test_product_detail_price(driver):
     )
     
     assert price.text == "$ 29.99"
+
+
+def test_back_button_return_to_products(driver):
+
+    wait = WebDriverWait(driver, 10)
+    wait.until(
+        EC.visibility_of_element_located((
+            AppiumBy.ID,
+            "com.saucelabs.mydemoapp.android:id/productTV"
+        ))
+    )
+
+    driver.find_element(
+        AppiumBy.ID, 
+        "com.saucelabs.mydemoapp.android:id/productIV"
+    ).click()
+
+    wait.until(
+        EC.visibility_of_element_located((
+            AppiumBy.XPATH,
+            "//*[@text='$ 29.99']"
+        ))
+    )
+
+    driver.back()
+
+    products_title = wait.until(
+        EC.visibility_of_element_located((
+            AppiumBy.ID, 
+            "com.saucelabs.mydemoapp.android:id/productTV"
+        ))
+    )
+
+    assert products_title.text == "Products"
+    assert products_title.is_displayed()
+
+def test_menu_button(driver):
+
+    wait = WebDriverWait(driver, 10)
+    wait.until(
+        EC.visibility_of_element_located((
+            AppiumBy.ID,
+            "com.saucelabs.mydemoapp.android:id/productTV"
+        ))
+    )
+
+    driver.find_element(
+        AppiumBy.ID, 
+        "com.saucelabs.mydemoapp.android:id/menuIV"
+    ).click()
+
+    menu_item = wait.until(
+        EC.visibility_of_element_located((
+            AppiumBy.XPATH,
+            "//*[@text='Catalog']"
+        ))
+    )
+
+    assert menu_item.is_displayed()
+
