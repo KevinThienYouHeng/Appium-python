@@ -8,7 +8,7 @@ class BasePage:
         self.wait = WebDriverWait(self.driver, 10)
 
     def find(self, by, value):
-        self.wait.until(EC.visibility_of_element_located((by, value)))
+        return self.wait.until(EC.visibility_of_element_located((by, value)))
 
     def click(self, by, value):
         self.find(by, value).click()

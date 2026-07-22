@@ -163,8 +163,8 @@ def test_scroll_to_find_bolt_tshirt(driver):
         ))
     )
 
-    driver.find_element(
-        'new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text("Sauce Labs Bolt T-Shirt))'
+    driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR,
+        'new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text("Sauce Labs Bolt T-Shirt"))'
     )
 
     bolt_tshirt = wait.until(
@@ -187,9 +187,9 @@ def test_scroll_bottom(driver):
     )
 
     driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR,
-                        'new UiScrollable(new UiSelector().srollable(true)).scrollToEnd(10)')
+                        'new UiScrollable(new UiSelector().scrollable(true)).scrollToEnd(10)')
     
-    last_product = driver.find_element(AppiumBy.Android.XPATH,"(//android.widget.TextView[@resource-id='com.saucelabs.mydemoapp.android:id/titleTV'])[last()]")
+    last_product = driver.find_element(AppiumBy.XPATH,"(//android.widget.TextView[@resource-id='com.saucelabs.mydemoapp.android:id/titleTV'])[last()]")
 
     assert last_product.is_displayed()
     print(f"Last product: {last_product.text}")
@@ -211,10 +211,10 @@ def test_scroll_bottom_Top(driver):
     print(f"First product before scroll: {first_product_name}")
 
     driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR,
-                        'new UiScrollable(new UiSelector().srollable(true)).scrollToEnd(10)')
+                        'new UiScrollable(new UiSelector().scrollable(true)).scrollToEnd(10)')
     
     driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR,
-                        'new UiScrollable(new UiSelector().srollable(true)).scrollToBeginning(10)')
+                        'new UiScrollable(new UiSelector().scrollable(true)).scrollToBeginning(10)')
     
     first_product_after = wait.until(
         EC.visibility_of_element_located((
