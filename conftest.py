@@ -6,8 +6,8 @@ from appium.options.android import UiAutomator2Options
 def driver():
     options = UiAutomator2Options()
     options.platform_name = "Android"
-    #options.device_name = "emulator-5554 "      # <-- from: adb devices
-    options.device_name = "0005214BF000108 "
+    options.device_name = "emulator-5554 "      # <-- from: adb devices
+    #options.device_name = "0005214BF000108 "
     options.app_package = "com.saucelabs.mydemoapp.android"
     options.app_activity = "com.saucelabs.mydemoapp.android.view.activities.SplashActivity"
     options.app_wait_activity = "com.saucelabs.mydemoapp.android.view.activities.MainActivity"

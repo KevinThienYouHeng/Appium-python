@@ -13,6 +13,7 @@ class MenuPage(BasePage):
     reset_app_item = (AppiumBy.XPATH, "//*[@text='Reset App State']")
     fingerprint_item = (AppiumBy.XPATH, "//*[@text='FingerPrint']")
     virtual_USB_item = (AppiumBy.XPATH, "//*[@text='Virtual USB']")
+    logout_item = (AppiumBy.XPATH, "//*[@text='Log Out']")
 
     def is_catalog_visible(self):
         return self.is_displayed(*self.catalog_item)
@@ -25,3 +26,6 @@ class MenuPage(BasePage):
 
     def click_login(self):
         self.click(*self.login_item)
+
+    def click_logout(self):
+        self.click(*self.logout_item)
