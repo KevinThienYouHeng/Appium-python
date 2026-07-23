@@ -17,6 +17,9 @@ class MenuPage(BasePage):
     def is_catalog_visible(self):
         return self.is_displayed(*self.catalog_item)
 
+    def click_catalog(self):
+        self.click(*self.catalog_item)
+
     def click_about(self):
         self.click(*self.about_item)
 
