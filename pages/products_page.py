@@ -7,6 +7,9 @@ class Products(BasePage):
     FIRST_PRODUCT_IMAGE = (AppiumBy.ID, "com.saucelabs.mydemoapp.android:id/productIV")
     FIRST_PRODUCT_NAME = (AppiumBy.ID, "com.saucelabs.mydemoapp.android:id/titleTV")
     MENU_BUTTON = (AppiumBy.ID, "com.saucelabs.mydemoapp.android:id/menuIV")
+    cart_badge = (AppiumBy.ID, "com.saucelabs.mydemoapp.android:id/cartTV")
+    cart_icon = (AppiumBy.ID, "com.saucelabs.mydemoapp.android:id/cartRL")
+
 
     def wait_for_products_screen(self):
         self.find(*self.PRODUCTS_TITLE)
@@ -19,3 +22,12 @@ class Products(BasePage):
     
     def click_menu_button(self):
         self.click(*self.MENU_BUTTON)
+
+    def click_cart_button(self):
+        self.click(*self.cart_icon)
+
+    def get_cart_count(self):
+        try:
+            return self.get_text(*self.cart_badge)
+        except:
+            return 0

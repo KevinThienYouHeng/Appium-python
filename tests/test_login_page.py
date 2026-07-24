@@ -118,3 +118,34 @@ def test_logout_button(driver):
     dialog_page = DialogPage(driver)
     assert dialog_page.is_dialog_displayed()
     dialog_page.click_logout_button()
+
+def test_logout_cancel_button(driver):
+
+    products_page = Products(driver)
+    products_page.wait_for_products_screen()
+    products_page.click_menu_button()
+
+    menu_page = MenuPage(driver)
+    menu_page.is_catalog_visible()
+    menu_page.click_login()
+
+    login_page = LoginPage(driver)
+    login_page.enter_username("standard_user")
+    login_page.enter_password("10203040")
+    login_page.click_login_button()
+
+    products_page.wait_for_products_screen()
+    products_page.click_menu_button()
+
+    menu_page.is_catalog_visible()
+    menu_page.click_logout()
+
+    dialog_page = DialogPage(driver)
+    assert dialog_page.is_dialog_displayed()
+    dialog_page.click_cancel_button()
+
+    products_page.wait_for_products_screen()
+    products_page.click_menu_button()
+
+    menu_page.is_catalog_visible()
+    assert menu_page.is_logout_visible(), "Should still be logged in after cancel"

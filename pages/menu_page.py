@@ -29,3 +29,9 @@ class MenuPage(BasePage):
 
     def click_logout(self):
         self.click(*self.logout_item)
+
+    def is_login_visible(self):
+        return self.is_displayed(*self.login_item)
+    
+    def is_logout_visible(self):
+        return self.is_displayed(*self.logout_item)
