@@ -40,3 +40,18 @@ class LoginPage(BasePage):
     
     def get_password_error_text(self):
         return self.get_text(*self.PASSWORD_ERROR_TEXT)
+    
+    def enter_username_keyboard(self, username):
+        field = self.find(*self.USERNAME_FIELD)
+        field.click()
+        field.send_keys(username)
+        self.driver.hide_keyboard()
+        #field.clear()
+
+    def enter_password_keyboard(self, password):
+        field = self.find(*self.PASSWORD_FIELD)
+        field.click()
+        field.send_keys(password)
+        self.driver.hide_keyboard()
+        #field.clear()
+        #field.send_keys(Keys.ENTER)
