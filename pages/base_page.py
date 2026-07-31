@@ -33,3 +33,7 @@ class BasePage:
         self.driver.get_screenshot_as_file(filepath)
         print(f"Screenshot saved: {filepath}")
         return filepath
+
+    def scroll_to_text(self, text):
+        return self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR,
+            f'new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text("{text}"))')

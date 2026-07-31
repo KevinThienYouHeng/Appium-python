@@ -8,6 +8,7 @@ class LoginPage(BasePage):
     LOGIN_BUTTON = (AppiumBy.ID, "com.saucelabs.mydemoapp.android:id/loginBtn")
     USERNAME_ERROR_TEXT = (AppiumBy.ID, "com.saucelabs.mydemoapp.android:id/nameErrorTV")
     PASSWORD_ERROR_TEXT = (AppiumBy.ID, "com.saucelabs.mydemoapp.android:id/passwordErrorTV")
+    LOGIN_TITLE = (AppiumBy.ID, "com.saucelabs.mydemoapp.android:id/loginTV")
 
     def login(self, username, password):
         self.find(*self.USERNAME_FIELD).send_keys(username)
@@ -55,3 +56,6 @@ class LoginPage(BasePage):
         self.driver.hide_keyboard()
         #field.clear()
         #field.send_keys(Keys.ENTER)
+
+    def verify_login_page(self):
+        return self.is_displayed(*self.LOGIN_TITLE)
