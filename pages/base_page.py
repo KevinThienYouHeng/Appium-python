@@ -3,6 +3,7 @@ from appium.webdriver.common.appiumby import AppiumBy
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from datetime import datetime
+from selenium.webdriver.common.action_chains import ActionChains
 
 class BasePage:
     def __init__(self, driver):
@@ -37,3 +38,13 @@ class BasePage:
     def scroll_to_text(self, text):
         return self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR,
             f'new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text("{text}"))')
+
+    def double_click(self, by, value):
+        element = self.find(by, value)
+        self.driver.execute_script("mobile: doubleClickGesture", {
+        "elementId": element.id
+    })
+        try:
+            self.driver.hide_keyboard()
+        except Exception:
+            pass

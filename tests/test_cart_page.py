@@ -38,3 +38,5 @@ def test_click_increase_quantity(driver):
     cartPage.increase_first_item(2)
     quantity_item = cartPage.get_item_quantity()
     print(f"Quantity: {quantity_item}")
+
+    

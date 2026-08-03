@@ -1,17 +1,32 @@
 import pytest
 from appium import webdriver
 from appium.options.android import UiAutomator2Options
+import os
 
 @pytest.fixture(scope="function")
 def driver():
     options = UiAutomator2Options()
     options.platform_name = "Android"
-    options.device_name = "emulator-5554 "      # <-- from: adb devices
-    #options.device_name = "0005214BF000108 "
-    options.app_package = "com.saucelabs.mydemoapp.android"
-    options.app_activity = "com.saucelabs.mydemoapp.android.view.activities.SplashActivity"
-    options.app_wait_activity = "com.saucelabs.mydemoapp.android.view.activities.MainActivity"
     options.automation_name = "UiAutomator2"
+
+    if os.getenv("CI"):
+        # ========== CI MODE (GitHub Actions) ==========
+        options.device_name = "Android Emulator"
+        # Appium will install this APK automatically before launching
+        options.app = "mda-2.2.0-25.apk"
+        # Auto-grant permissions so login/location popups don't block tests
+        options.auto_grant_permissions = True
+        
+    else:
+        # ========== LOCAL MODE ==========
+        options.device_name = "emulator-5554"  # <-- from: adb devices
+        #options.device_name = "0005214BF000108 "
+        options.app_package = "com.saucelabs.mydemoapp.android"
+        options.app_activity = "com.saucelabs.mydemoapp.android.view.activities.SplashActivity"
+        options.app_wait_activity = "com.saucelabs.mydemoapp.android.view.activities.MainActivity"
+    
+    
+    
     #options.no_reset = True                       # Keeps app state between sessions
 
     driver = webdriver.Remote("http://localhost:4723", options=options)
@@ -42,3 +57,25 @@ def pytest_runtest_makereport(item, call):
             
             driver.get_screenshot_as_file(filepath)
             print(f"\nScreenshot saved on failure: {filepath}")
+
+def get_android_capabilities():
+    """
+    Returns capabilities. In CI, the emulator is already running on localhost:4723.
+    Locally, you run Appium server yourself.
+    """
+    options = UiAutomator2Options()
+    options.platform_name = "Android"
+    options.automation_name = "UiAutomator2"
+    options.device_name = "Android Emulator"
+    
+    # Path to your APK. In CI we will download it to this path.
+    options.app = "mda-2.2.0-25.apk"
+    
+    # Auto-grant permissions so the login flow isn't blocked
+    options.auto_grant_permissions = True
+    
+    # Don't reset app data between tests in the same session
+    # (We use fullReset=False in CI so login state persists briefly)
+    options.no_reset = False
+    
+    return options
