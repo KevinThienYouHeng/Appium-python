@@ -99,5 +99,14 @@ def test_checkout_error_message_country(driver):
     checkoutPage.verify_field_error_icon(checkoutPage.country_item_parent, "Country")
     checkoutPage.verify_field_error(checkoutPage.country_item_error, "Please provide your")
 
+def test_checkout_credentials_until_address(driver):
+    checkoutPage = CheckoutPage(driver)
+    checkoutPage.reach_checkout_title()
+    checkoutPage.enter_full_name("John Doe")
+    checkoutPage.enter_address_line1("123 Main St")
+    checkoutPage.click_payment_button()
+    checkoutPage.verify_field_error(checkoutPage.city_item_error, "Please provide your city.")
+    checkoutPage.verify_field_error(checkoutPage.zip_code_error, "Please provide your zip")
+    checkoutPage.verify_field_error(checkoutPage.country_item_error, "Please provide your")
 
     

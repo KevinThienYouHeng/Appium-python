@@ -177,3 +177,12 @@ class CheckoutPage(BasePage):
         error_icon = parent.find_element(*self.error_icon)
         assert error_icon.is_displayed(), f"{field_name} error icon is not displayed"
         return True
+
+    def reach_checkout_page_two(self):
+        self.enter_full_name("John Doe")
+        self.enter_address_line1("123 Main St")
+        self.enter_city("Anytown")
+        self.enter_zip_code("12345")
+        self.enter_state("CA")
+        self.enter_country("USA")
+        self.click_payment_button()
