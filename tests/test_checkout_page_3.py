@@ -8,6 +8,7 @@ from pages.checkout import CheckoutPage
 from pages.checkout_page_two import CheckoutPageTwo
 from pages.base_page import BasePage
 from pages.checkout_page_three import CheckoutPageThree
+from pages.checkout_complete import CheckoutComplete
 
 def test_reach_checkout_3_title(driver):
     checkoutPageTwo = CheckoutPageTwo(driver)
@@ -45,3 +46,14 @@ def test_click_payment(driver):
 
     checkoutPageThree = CheckoutPageThree(driver)
     checkoutPageThree.click_payment_button()
+
+def test_click_continue_shopping(driver):
+    checkoutPageTwo = CheckoutPageTwo(driver)
+    checkoutPageTwo.reach_checkout_two_title()
+    checkoutPageTwo.enter_full_credentials("Max","1234567812345","12/25","123")
+
+    checkoutPageThree = CheckoutPageThree(driver)
+    checkoutPageThree.click_payment_button()
+
+    checkout = CheckoutComplete(driver)
+    checkout.click_continue_button()
