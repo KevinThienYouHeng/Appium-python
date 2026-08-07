@@ -1,6 +1,7 @@
 import pytest
 from appium import webdriver
 from appium.options.android import UiAutomator2Options
+from utils.ai_helper import ask_ai_to_analyze_failure
 import os
 
 @pytest.fixture(scope="function")
@@ -57,6 +58,14 @@ def pytest_runtest_makereport(item, call):
             
             driver.get_screenshot_as_file(filepath)
             print(f"\nScreenshot saved on failure: {filepath}")
+
+        error_text = str(rep.longrepr)
+        try:
+            ai_analysis = ask_ai_to_analyze_failure(error_text)
+            print(f"\n[AI ANALYSIS]\n{ai_analysis}")
+        except Exception as e:
+            # Don't let AI failure break the test report
+            print(f"\n[AI ANALYSIS] Skipped — {e}")
 
 def get_android_capabilities():
     """

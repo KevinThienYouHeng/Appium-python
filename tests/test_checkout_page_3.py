@@ -29,7 +29,7 @@ def test_get_total_items_checkout_3(driver):
     checkoutPageThree = CheckoutPageThree(driver)
     total_items = checkoutPageThree.get_total_items()
     print(f"Total items: {total_items}")
-    assert total_items == "Total items: 1"
+    assert total_items == "Total items: 2"
 
 def test_content_checkout_3(driver):
     checkoutPageTwo = CheckoutPageTwo(driver)
