@@ -1,9 +1,8 @@
 from pages.products_page import Products
 from pages.product_detail_page import ProductDetailPage
-from pages.menu_page import MenuPage
 from pages.cart_page import CartPage
 from pages.login_page import LoginPage
-import pytest
+
 
 def test_click_first_product(driver):
     products_page = Products(driver)

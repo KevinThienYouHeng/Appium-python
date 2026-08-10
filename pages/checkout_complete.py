@@ -1,11 +1,6 @@
 from appium.webdriver.common.appiumby import AppiumBy
 from pages.base_page import BasePage
-from pages.products_page import Products
-from pages.product_detail_page import ProductDetailPage
-from pages.menu_page import MenuPage
-from pages.login_page import LoginPage
-from pages.cart_page import CartPage
-from pages.checkout import CheckoutPage
+
 
 class CheckoutComplete(BasePage):
 

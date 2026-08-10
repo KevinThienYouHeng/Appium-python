@@ -1,10 +1,5 @@
 from appium.webdriver.common.appiumby import AppiumBy
 from pages.base_page import BasePage
-from pages.products_page import Products
-from pages.product_detail_page import ProductDetailPage
-from pages.menu_page import MenuPage
-from pages.login_page import LoginPage
-from pages.cart_page import CartPage
 
 class CheckoutPage(BasePage):
 
@@ -44,30 +39,14 @@ class CheckoutPage(BasePage):
     country_item_parent = (AppiumBy.ID, "com.saucelabs.mydemoapp.android:id/countryRL")
     state_item_parent = (AppiumBy.ID, "com.saucelabs.mydemoapp.android:id/stateRL") 
 
-    def is_checkout_title_displayed(self):
-        
+    def is_checkout_title_displayed(self):     
         return self.is_displayed(*self.checkout_title)
 
     def get_checkout_title(self):
         return self.get_text(*self.checkout_title)
 
     #This is call helper function to reach checkout title from products page, login page, product detail page, cart page
-    def reach_checkout_title(self):
-        products_page = Products(self.driver)
-        menu_page = MenuPage(self.driver)
-        login_page = LoginPage(self.driver)
-        product_detail_page = ProductDetailPage(self.driver)
-        cartPage = CartPage(self.driver)
-
-        products_page.wait_for_products_screen()
-        products_page.click_menu_button()
-        menu_page.click_login()
-        login_page.login("standard_user", "10203040")
-        products_page.click_first_product()
-        product_detail_page.click_add_to_cart()
-        products_page.click_cart_button()
-        cartPage.click_checkout_button()
-        self.is_checkout_title_displayed()
+    
 
     def verify_checkout_page(self):
         self.double_click(*self.full_name_input)

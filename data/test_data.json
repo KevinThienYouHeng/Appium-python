@@ -1,0 +1,12 @@
+{
+    "credentials": {
+        "valid": {
+            "username": "standard_user@example.com",
+            "password": "secret_sauce"    
+        },
+        "invalid": [
+            {"username": "invalid_user", "password": "invalid_password"},
+            {"username": "", "password": ""}
+        ]
+    }
+}

@@ -1,11 +1,7 @@
 from appium.webdriver.common.appiumby import AppiumBy
 from pages.base_page import BasePage
-from pages.products_page import Products
-from pages.product_detail_page import ProductDetailPage
-from pages.menu_page import MenuPage
-from pages.login_page import LoginPage
-from pages.cart_page import CartPage
 from pages.checkout import CheckoutPage
+from helpers.checkout_flow import CheckoutFlow
 
 class CheckoutPageTwo(BasePage):
 
@@ -32,7 +28,8 @@ class CheckoutPageTwo(BasePage):
 
     def reach_checkout_two_title(self):
         checkoutPage = CheckoutPage(self.driver)
-        checkoutPage.reach_checkout_title()
+        checkoutFlow = CheckoutFlow(self.driver)
+        checkoutFlow.reach_checkout_title()
         checkoutPage.reach_checkout_page_two()
         self.verify_checkout_two_title_displayed()
 

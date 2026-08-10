@@ -1,8 +1,9 @@
 from pages.products_page import Products
-from pages.product_detail_page import ProductDetailPage
 from pages.menu_page import MenuPage
 from pages.login_page import LoginPage
 from pages.dialog_page import DialogPage
+from data.credentials import *
+import pytest
 
 def test_click_login(driver):
     products_page = Products(driver)
@@ -13,33 +14,15 @@ def test_click_login(driver):
     menu_page.is_catalog_visible()
     menu_page.click_login()
 
-def test_click_loginbutton(driver):
-    products_page = Products(driver)
-    products_page.wait_for_products_screen()
-    products_page.click_menu_button()
-
-    menu_page = MenuPage(driver)
-    menu_page.is_catalog_visible()
-    menu_page.click_login()
-
-    login_page = LoginPage(driver)
+def test_click_loginbutton(login_page):
+    
     login_page.click_login_button()
-    #login_page.is_username_error_displayed()
     assert login_page.is_username_error_displayed()
     assert login_page.get_username_error_text() == "Username is required"
     print(login_page.get_username_error_text())
 
-def test_enter_username_only(driver):
+def test_enter_username_only(login_page):
 
-    products_page = Products(driver)
-    products_page.wait_for_products_screen()
-    products_page.click_menu_button()
-
-    menu_page = MenuPage(driver)
-    menu_page.is_catalog_visible()
-    menu_page.click_login()
-
-    login_page = LoginPage(driver)
     login_page.enter_username("standard_user")
     assert login_page.get_username_value() == "standard_user"
     #login_page.login("standard_user", "secret_sauce")
@@ -92,6 +75,17 @@ def test_enter_credentials(driver):
     login_page = LoginPage(driver)
     login_page.enter_username("standard_user")
     login_page.enter_password("10203040")
+    login_page.click_login_button()
+
+@pytest.mark.parametrize("username,password", [
+    (VALID_USER,VALID_PASSWORD),
+    (INVALID_USER,INVALID_PASSWORD),
+    (EMPTY_USER,EMPTY_PASSWORD)
+])
+def test_enter_credentials_using_data(login_page, username, password):
+
+    login_page.enter_username(username)
+    login_page.enter_password(password)
     login_page.click_login_button()
 
 def test_logout_button(driver):

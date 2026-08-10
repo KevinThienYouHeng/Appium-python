@@ -136,4 +136,11 @@ def test_click_three_products_by_number(driver):
     assert items == 3
     print(f"Items: {items}")
 
+def test_click_sort(driver):
+    products_page = Products(driver)
+    products_page.wait_for_products_screen()
+    products_page.click_sort_button()
+    assert products_page.verify_sort_modal()
+
+
 

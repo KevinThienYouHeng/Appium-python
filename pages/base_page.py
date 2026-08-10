@@ -35,9 +35,23 @@ class BasePage:
         print(f"Screenshot saved: {filepath}")
         return filepath
 
-    def scroll_to_text(self, text):
-        return self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR,
-            f'new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text("{text}"))')
+    def scroll_and_find_text(self, text:str, timeout: int = 10):
+        
+         try:
+            element = WebDriverWait(self.driver, timeout).until(
+                lambda d: d.find_element(
+                    AppiumBy.ANDROID_UIAUTOMATOR,
+                    f'new UiScrollable(new UiSelector().scrollable(true))'
+                    f'.scrollIntoView(new UiSelector().text("{text}"))'
+                )
+            )
+            return element
+
+         except Exception as e:
+            raise AssertionError(
+                f"Could not scroll to and find text '{text}' after {timeout}s. "
+                f"Original error: {e}"
+            )
 
     def double_click(self, by, value):
         element = self.find(by, value)

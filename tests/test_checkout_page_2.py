@@ -1,10 +1,3 @@
-from pages.products_page import Products
-from pages.product_detail_page import ProductDetailPage
-from pages.menu_page import MenuPage
-from pages.login_page import LoginPage
-from pages.dialog_page import DialogPage
-from pages.cart_page import CartPage
-from pages.checkout import CheckoutPage
 from pages.checkout_page_two import CheckoutPageTwo
 from pages.base_page import BasePage
 
